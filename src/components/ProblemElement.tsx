@@ -1,3 +1,4 @@
+import React from 'react'
 import Problem from '../domain/models/Problem'
 
 export interface ProblemElementProps {
