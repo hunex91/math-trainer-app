@@ -4,12 +4,12 @@ const routes = [
   {
     exact: true,
     path: '/',
-    component: lazy(() => import('../views/LoadingView')),
+    component: lazy(() => import('../views/RootView')),
   },
   {
     exact: true,
-    path: '/problem',
-    component: lazy(() => import('../views/LoadingView')),
+    path: '/exercise',
+    component: lazy(() => import('../views/ExerciseView')),
   },
 ]
 
