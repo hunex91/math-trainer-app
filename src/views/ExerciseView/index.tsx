@@ -12,7 +12,8 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ReplayIcon from '@material-ui/icons/Replay'
 import ExerciseController from 'components/ExerciseController'
-import React, { useState } from 'react'
+import useQuery from 'helpers/hooks/useQuery'
+import React from 'react'
 import { useHistory } from 'react-router'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,15 +28,30 @@ const useStyles = makeStyles((theme: Theme) =>
     restartButton: {
       marginLeft: theme.spacing(2),
     },
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
   })
 )
 
 const ExerciseView = () => {
   const classes = useStyles()
   const history = useHistory()
+  const query = useQuery()
 
-  const [type, setType] = useState('type_1')
-  const [count, setCount] = useState(10)
+  const type = query.get('type')
+  const count = query.get('count')
+
+  // TODO: better error handling
+
+  if (!type) {
+    return <div>Invalid type</div>
+  }
+
+  if (!count) {
+    return <div>Invalid count</div>
+  }
 
   const backClickHandler = () => {
     history.push('/')
@@ -68,8 +84,8 @@ const ExerciseView = () => {
         </Toolbar>
       </AppBar>
 
-      <Container>
-        <ExerciseController />
+      <Container className={classes.container}>
+        <ExerciseController type={type} count={Number(count)} />
       </Container>
     </Box>
   )
